@@ -1,4 +1,4 @@
-# 🎨 Colors – Pixel Art Made Simple
+# 🎨 Colors
 
 **Colors** is a web-based drawing platform designed for pixel art enthusiasts. Users can sign up, create their own pixel artwork, save their creations in personalized galleries, and even edit or delete them. With a role-based user management system, admins can oversee user access, providing both security and flexibility.
 
