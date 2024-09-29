@@ -1,0 +1,45 @@
+﻿@model Palette
+@{ 
+    var x = Palette.MyPalette(Model.UserName);
+}
+<div user>@Model.UserName</div>
+<input colorr type="color" style="display:none" />
+<span y style="display:none" onclick="addcolor('@Model.UserName')">אישור</span>
+<div name1="@Model.UserName" pallete>
+    @if (x == null)
+    {
+        <span class="plus" onclick="openinput()">+</span>
+    }
+    else
+    {
+        @for (int i = 0; i < x.Count; i++)
+        {
+            <partial name="_partialonecolor" model="@x[i]" />
+        }
+        @if (Model.UserName != "General")
+        {
+            <span class="plus" onclick="openinput()">+</span>
+        }
+
+    }
+</div>
+<script>
+    function openinput()
+    {
+        document.querySelector('[colorr]').style.display = "block";
+        document.querySelector('[y]').style.display = "block";
+    }
+    function addcolor(name)//הוספת צבע
+    {
+        var color = document.querySelector('[colorr]').value;
+        var x =color.slice(1, color.length);
+        console.log(x);
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Palette/Partialonecolor/' + name + '/' + x, true)//קישור לקונטרולר
+        req.onload = function () {
+            console.log(req.responseText);
+            document.querySelector('[pallete]').innerHTML += req.responseText;
+        };
+        req.send();
+    }
+</script>

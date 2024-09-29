@@ -1,0 +1,391 @@
+﻿@page
+@{
+    ViewData["User"] = Request.Query["name"];
+    Palette p = new Palette();
+    p.UserName = "General";
+    Palette p1 = new Palette();
+    p1.UserName = Request.Query["name"];
+    Board b = new Board();
+    b.UserName = p1.UserName;
+    b.Size = 10;
+}
+<link href="~/css/drowpage.css" rel="stylesheet" />
+<script src="~/js/site.js"></script>
+<div colors>
+    <div xxx>
+        <div><partial name="_partialpallete" model="@p1"></div>
+        <div><partial name="_partialpallete" model="@p"></div>
+    </div>
+    <div current>
+        <div>:צבע נוכחי</div>
+        <div></div>
+    </div>
+</div>
+<div tabim>
+    <div tab1 onclick="showglobalgalery()">גלריה כללית</div>
+    <div tab2 onclick="showgalery()">הגלריה שלי</div>
+    <div onclick="showdrow()"  tab3>הציור שלי</div>
+</div>
+<div all>
+    <div disapear>
+        <div>
+            <div h onclick="funcy()">חדש</div>
+            <div h onclick="funcx()" sh>שמור</div>
+            <div yon><span no onclick="blackorwhite('no')">לא</span><span yes onclick="blackorwhite('yes')">כן</span>קווי רשת</div>
+        </div>
+        <div>
+            <div><input type="range"  onchange="high()" min="0" value="0" max="200" high />תצוגה<span highrange ></span></div>
+            <div><input type="color" onchange="changebc()" bci/><span ch>צבע רקע</span></div>
+        </div>
+        <div>
+            <div h>פתח קובץ קיים<input type="file" onchange="path()" path /></div>
+            <div h onclick="pdf()">שמור כ PDF</div>
+            <div h onclick="changesize(2)">נקה לוח</div>
+        </div>
+    </div>
+    <div p ><partial name="_partialboard" model="@b"></div>
+</div>
+<div galery>
+    <partial name="_partialgalery" model="@p1.UserName">
+</div>
+<div globalgelery>
+    <partial name="_partialgalery" model="@p.UserName">
+</div>
+<div class="popupi">
+    <div>
+        <span>הכנס שם קובץ</span>
+        <span style="background-color:transparent;border-color:transparent"><input type="text" placeholder="שם ציור" nd /></span>
+        <span onclick="createdrow()">אישור</span>
+    </div>
+</div>
+<div class="popupi2">
+    <div>
+        <span>הכנס שם קובץ</span>
+        <span style="background-color:transparent;border-color:transparent"><input type="text" placeholder="שם ציור" nd2 /></span>
+        <span onclick="createnew()">אישור</span>
+    </div>
+</div>
+<div class="popupi3">
+    <div>
+        <span>???האם אתה שברצונך לצאת מהציור הנוכחי ללא שמירה</span>
+        <span style="background-color:transparent;border-color:transparent"><input type="text" placeholder=" חדש שם ציור" nd3 /></span>
+        <span onclick="changesize2()">אישור</span>
+        <span onclick="cancal3()">ביטול</span>
+    </div>
+</div>
+<style>
+    [tabim]{width:520px;height:30px;margin:auto;margin-left:150px;position:relative;display:flex;top:0;z-index:1000;background-color:gray}
+    [tabim]>div{flex:1;text-align:center;font-family:Calibri;font-weight:bolder;color:white;font-weight:bolder;font-size:20px}
+    [tabim]>div:hover{cursor:pointer;background-color:black}
+    .popupi{display:none;background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+    .popupi >div{display:flex;margin:auto;flex-direction:column;height:50px;width:200px;margin-top:0px;}
+    .popupi >div >span{flex:1;margin:5px;text-align:center;font-family:Calibri;background-color:white;border-radius:3px;border:1px solid}
+    .popupi >div >span:nth-child(3):hover{cursor:pointer;box-shadow:3px 3px 3px grey}
+    .popupi2{display:none;background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+    .popupi2 >div{display:flex;margin:auto;flex-direction:column;height:50px;width:200px;margin-top:0px;}
+    .popupi2 >div >span{flex:1;margin:5px;text-align:center;font-family:Calibri;background-color:white;border-radius:3px;border:1px solid}
+    .popupi2 >div >span:nth-child(3):hover{cursor:pointer;box-shadow:3px 3px 3px grey}
+    .popupi3{display:none;background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+    .popupi3 >div{display:flex;margin:auto;flex-direction:column;height:50px;width:200px;margin-top:0px;}
+    .popupi3 >div >span{flex:1;margin:5px;text-align:center;font-family:Calibri;background-color:white;border-radius:3px;border:1px solid}
+    .popupi3 >div >span:hover{cursor:pointer;box-shadow:3px 3px 3px grey}
+    [all]{width:500px;height:500px;display:flex;flex-direction:column;margin:auto;margin-left:150px;position:absolute;display:none}
+    [all] >div:nth-child(1){flex:1;flex-direction:row;display:flex;position:relative}
+    [all] >div:nth-child(2){flex:9;background-color:white}
+    [all] >div:nth-child(1) >div{flex:1;display:flex;flex-direction:column}
+    [all] >div:nth-child(1) >div >div{flex:1;border:1px solid;margin:5px;border-radius:3px;text-align:center;font-family:Calibri;}
+    [colors]{display:flex;width:120px;height:auto;flex-direction:column;position:absolute;margin-right:0px;display:none}
+    [xxx]{display:flex;width:120px;height:auto;flex:8}
+    [xxx]>div{flex:1}
+    [yon]{display:flex}
+    [yon]>span{flex:1;border:1px solid;border-radius:3px;font-family:Calibri;text-align:center;margin:10px}
+    [h]:hover{box-shadow:3px 3px 3px grey;cursor:pointer}
+    [no]:hover{box-shadow:3px 3px 3px grey;cursor:pointer}
+    [yes]:hover{box-shadow:3px 3px 3px grey;cursor:pointer}
+    [ch]{font-family:Calibri}
+    [current]{display:flex;flex-direction:column;width:100px;height:100px;right:500px;flex:2}
+    [current] >div:nth-child(1){text-align:center;font-family:Calibri;margin:5px;}
+    [current] >div:nth-child(2){margin:5px auto;border:1px solid;border-radius:50%;width:50px;height:50px}
+    .unable{opacity:0.5;box-shadow:0px 0px 0px !important;cursor:auto !important}
+    .namefile2{font-family:'French Script MT';font-weight:bolder;}
+    .y1{border-bottom-color: #808080 !important;border-top-color: transparent !important;border-right-color:transparent !important;border-left-color: transparent !important;}
+    .y2 {border-right-color:#808080 !important;border-bottom-color: transparent !important;border-top-color: transparent !important;border-left-color: transparent !important;}
+    .t{border:1px solid transparent !important;}
+    .black{background-color:black;color:white}
+    .white{background-color:white;color:black}
+    [galery]{width:500px;height:500px;margin:auto;margin-left:150px;position:absolute;display:none;border:1px solid;border-radius:3px;background-color:white;}
+    [globalgelery]{width:500px;height:500px;margin:auto;margin-left:150px;position:absolute;display:none;border:1px solid;border-radius:3px;background-color:white;}
+    [snd]{display:none}
+    [snd]:hover{box-shadow:3px 3px 3px grey;cursor:pointer}
+</style>
+<script>
+    var currrent_size = '@b.Size';
+    var currrent_color;
+    var NAMEFILE;
+    var degel;
+    function pdf()
+    {
+       print();//לא מזהה את הסטייל
+    }
+    function funcx() {// פופאפ לבחירת שם קובץ
+        document.querySelector('.popupi').classList.add('popupActive');
+    }
+    function funcy() {// פופאפ לבחירת שם קובץ
+        document.querySelector('.popupi2').classList.add('popupActive');
+    }
+    function popopen() {// פופאפ לבחירת שם קובץ
+        document.querySelector('.popopen').classList.add('popupActive');
+    }
+    function createnew()//ציור חדש החזרת פרשל
+    {
+        document.querySelector('.popupi2').classList.remove('popupActive');
+        var name = '@p1.UserName';
+        var size = '@b.Size';
+        var namef = document.querySelector('[nd2]').value;
+        NAMEFILE = document.querySelector('[nd2]').value;
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Board/createboard/' + name + '/' + namef + '/' + size, true)//קישור לקונטרולר
+        req.onload = function ()
+        {
+            document.querySelector('[nd2]').value = ' ';
+            document.querySelector('[p]').innerHTML = req.responseText;
+        };
+        req.send();
+    }
+
+    function createdrow()//שמירת ציור POST
+    {
+        var mat = [currrent_size];
+        for (var i = 0; i < currrent_size; i++)
+        {
+            mat[i] = [currrent_size];
+        }
+        for (var i = 0; i < currrent_size; i++) {
+            for (var j = 0; j < currrent_size; j++) {
+                mat[i][j] = document.querySelector("[i='" + i + "'][j='" + j + "']").style.backgroundColor;
+            }
+        }
+        var name ='@p1.UserName';
+        NAMEFILE = document.querySelector('[nd]').value;
+        document.querySelector('.popupi').classList.remove('popupActive');
+        document.querySelector('[sh]').classList.add('unable');
+        document.querySelector('[sh]').setAttribute("onclick", "");
+        var data = {};
+        data['UserName'] = name;
+        data['FileName'] = NAMEFILE;
+        data['Size'] = currrent_size;
+        data['BackGroundColor'] = document.querySelector('[bci]').value;
+        if (document.querySelector('[yes]').style.backgroundColor = "black") {
+            data['IsDisplay'] = true;
+        }
+        else {
+            if (document.querySelector('[no]').style.backgroundColor = "black") {
+                data['IsDisplay'] = false;
+            }
+        }
+        console.log(data['IsDisplay']);
+        data['mat'] = mat;
+        var req = new XMLHttpRequest();
+        req.open('POST', 'API/Board/shmorboard/', true)// פונקצית post קישור לקונטרולר
+        req.setRequestHeader('Content-type', 'application/json;charset=utf-8')
+        req.onload = function () {
+            var x = req.responseText;
+            if (x == 1)
+            {
+                alert("קיים קובץ בשם הזה");
+            }
+            if (x == -1)
+            {
+                alert("אירעה תקלה אחרת");
+            }
+           document.querySelector('[nd]').value = ' ';
+        };
+        req.send(JSON.stringify(data));
+    }
+
+
+    function high()//הצגת טווח גודל
+    {
+        document.querySelector('[highrange]').innerHTML = " " + document.querySelector('[high]').value;
+        changesize(1);
+    }
+
+    function changesize(a)
+    {
+        currrent_size = document.querySelector('[high]').value;
+        degel = a;
+        document.querySelector('.popupi3').classList.add('popupActive');
+    }
+
+    function changesize2()//שינוי גודל
+    {
+        var name = '@p1.UserName';
+        document.querySelector('.popupi3').classList.remove('popupActive');
+        currrent_size = document.querySelector('[high]').value;
+        if (degel == 2)
+        {
+            NAMEFILE = " ";
+            currrent_size ='@b.Size';
+        }
+        NAMEFILE = document.querySelector('[nd3]').value;
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Board/changesize/' + name + '/' + NAMEFILE + '/' + currrent_size, true)//קישור לקונטרולר
+        req.onload = function ()
+        {
+            document.querySelector('[p]').innerHTML = req.responseText;
+        }; req.send();
+    }
+
+    function cancal3()
+    {
+        document.querySelector('[high]').value = currrent_size;
+        document.querySelector('[highrange]').innerHTML = " " + document.querySelector('[high]').value;
+        document.querySelector('.popupi3').classList.remove('popupActive');
+    }
+
+    function changebc()//שינוי צבע רקע של ציור
+    {
+        document.querySelector('.diveastable').style.backgroundColor = document.querySelector('[bci]').value;
+        free();
+    }
+
+    function blackorwhite(a)//כפתורים כן ולא הצגת קוי רשת
+    {
+        var arr = document.querySelectorAll('[row]');
+        free();
+        if (a == "yes") {
+            document.querySelector('[yes]').classList.remove('white');
+            document.querySelector('[yes]').classList.add('black');
+            document.querySelector('[no]').classList.remove('black');
+            document.querySelector('[no]').classList.add('white');
+            //for (var i = 0; i < arr.length; i++) {
+            //    arr[i].classList.remove('t');
+            //    arr[i].classList.add('y1');
+            //}
+            //for (var i = 0; i < currrent_size; i++) {
+            //    for (var j = 0; j < currrent_size; j++) {
+            //        document.querySelector("[i='" + i + "'][j='" + j + "']").classList.remove('t');
+            //        document.querySelector("[i='" + i + "'][j='" + j + "']").classList.add('y2');
+            //    }
+            //}
+        }
+        else
+        {
+            document.querySelector('[yes]').classList.remove('black');
+            document.querySelector('[yes]').classList.add('white');
+            document.querySelector('[no]').classList.remove('white');
+            document.querySelector('[no]').classList.add('black');
+            //for (var i = 0; i < currrent_size; i++) {
+            //    for (var j = 0; j < currrent_size; j++) {
+            //        document.querySelector("[i='" + i + "'][j='" + j + "']").classList.remove('y2');
+            //        document.querySelector("[i='" + i + "'][j='" + j + "']").classList.add('t');
+            //    }
+            //}
+            //for (var i = 0; i < arr.length; i++) {
+            //    arr[i].classList.remove('y1');
+            //    arr[i].classList.add('t');
+            //}
+        }
+    }
+
+    @*function yess()
+    {
+        document.querySelector('.diveastable').innerHTML = "";
+        console.log('yess');
+        free();
+        var namee = '@p1.UserName';
+        var size = currrent_size;
+            document.querySelector('[yes]').classList.remove('white');
+            document.querySelector('[yes]').classList.add('black');
+            document.querySelector('[no]').classList.remove('black');
+            document.querySelector('[no]').classList.add('white');
+            var req = new XMLHttpRequest();
+        req.open('GET', 'API/Board/retpartial/' + namee + '/' + true + '/' + size, true)//קישור לקונטרולר
+        req.onload = function () {
+            console.log('yes' + req.responseText);
+                document.querySelector('.diveastable').innerHTML = req.responseText;
+        }; req.send();
+    }
+
+    function noo()
+    {
+        document.querySelector('.diveastable').innerHTML = "";
+        console.log('noo');
+      free();
+        var namee = '@p1.UserName';
+        var size = currrent_size;
+      document.querySelector('[yes]').classList.remove('white');
+      document.querySelector('[yes]').classList.add('black');
+      document.querySelector('[no]').classList.remove('black');
+      document.querySelector('[no]').classList.add('white');
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Board/retpartial/' + namee + '/' + false + '/' + size, true)//קישור לקונטרולר
+       req.onload = function () {
+            console.log('no' + req.responseText);
+          document.querySelector('.diveastable').innerHTML = req.responseText;
+      }; req.send();
+    }*@
+
+    function close()
+    {
+        document.querySelector('[sh]').removeEventListener("click", func());
+    }
+
+    function showdrow()//טאב 3
+    {
+        document.querySelector('[tab3]').style.backgroundColor = "black";
+        document.querySelector('[tab1]').style.backgroundColor = "grey";
+        document.querySelector('[tab2]').style.backgroundColor = "grey";
+        document.querySelector('[all]').style.display = "block";
+        document.querySelector('[colors]').style.display = "block";
+        document.querySelector('[galery]').style.display = "none";
+        document.querySelector('[globalgelery]').style.display = "none";
+    }
+
+    function showgalery()//טאב 2
+    {
+        document.querySelector('[tab2]').style.backgroundColor = "black";
+        document.querySelector('[tab1]').style.backgroundColor = "grey";
+        document.querySelector('[tab3]').style.backgroundColor = "grey";
+        document.querySelector('[all]').style.display = "none";
+        document.querySelector('[colors]').style.display = "none";
+        document.querySelector('[galery]').style.display = "block";
+        document.querySelector('[globalgelery]').style.display = "none";
+    }
+
+
+    function showglobalgalery()//טאב 3
+    {
+        document.querySelector('[tab1]').style.backgroundColor = "black";
+        document.querySelector('[tab3]').style.backgroundColor = "grey";
+        document.querySelector('[tab2]').style.backgroundColor = "grey";
+        document.querySelector('[all]').style.display = "none";
+        document.querySelector('[colors]').style.display = "none";
+        document.querySelector('[galery]').style.display = "none";
+        document.querySelector('[globalgelery]').style.display = "block";
+    }
+
+    function free()
+    {
+        document.querySelector('[sh]').classList.remove('unable');
+        document.querySelector('[sh]').setAttribute("onclick", "funcx");//לא מעלה פופאפ ישר
+    }
+
+    function path()//סייר הקבצים
+    {
+        var x = document.querySelector('[path]').value;
+        console.log(x);
+        var namefile = x.slice(0, x.length - 4);
+        var namefilee = namefile.slice(12, namefile.length);
+        var nameuser = '@p1.UserName';
+        console.log(namefilee);
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Board/opentext/' + nameuser + '/' + namefilee, true)//קישור לקונטרולר
+        req.onload = function () {
+            console.log(req.responseText);
+            document.querySelector('.diveastable').innerHTML = req.responseText;
+        };
+        req.send();
+
+    }
+</script>

@@ -1,0 +1,140 @@
+﻿@model Board
+<script src="~/js/site.js"></script>
+<link href="~/css/drowpage.css" rel="stylesheet" />
+@if (Model.IsArchive == true)
+{
+    <h1 class="namefile">@Model.FileName</h1>
+
+    @if (Model.UserName != "General")
+    {
+        <span class="spani">
+            <span onclick="popdelete('@Model.UserName')">מחק לוח</span>
+            <span onclick="opentc('@Model.UserName','@Model.FileName')">פתח לעריכה</span>
+        </span>
+    }
+
+}
+
+@if (Model.IsArchive == true)
+{
+    <div class="diveastable" filname="@Model.FileName" style="width:300px !important;height:300px !important">
+        @for (int i = 0; i < Model.Size; i++)
+        {
+            <div row>
+                @for (int j = 0; j < Model.Size; j++)
+                {
+                    @if (Model.IsArchive == false)
+                    {
+                        @if (Model.mat == null)
+                        {
+                            <div yes2 draggable="true" i="@i" j="@j" ondragstart="star(event)" ondragover="ov(event)" ></div>
+                        }
+                        else
+                        {
+                            <div yes2 draggable="true" i="@i" j="@j" style="background-color:@Model.mat[i][j]" ondragstart="star(event)" ondragover="ov(event)" ></div>
+
+                        }
+                    }
+                    else
+                    {
+                        @if (Model.mat == null)
+                        {
+                            <div yes2 i="@i" j="@j"></div>
+                        }
+                        else
+                        {
+                            <div yes2 i="@i" j="@j" style="background-color:@Model.mat[i][j]"></div>
+
+                        }
+                    }
+
+                }
+            </div>
+        }
+        @if (Model.IsDisplay == true)
+        {
+            <style>
+                [row] {
+                    border: 1px solid;
+                    border-bottom-color: #808080 !important;
+                    border-top-color: transparent;
+                    border-right-color: transparent;
+                    border-left-color: transparent;
+                }
+
+                [yes2] {
+                    border: 1px solid;
+                    border-right-color: #808080 !important;
+                    border-top-color: transparent;
+                    border-top-color: transparent;
+                    border-left-color: transparent;
+                }
+            </style>
+        }
+    </div>
+}
+else
+{
+    <div class="diveastable" filname="@Model.FileName">
+        @for (int i = 0; i < Model.Size; i++)
+        {
+            <div row>
+                @for (int j = 0; j < Model.Size; j++)
+                {
+                    @if (Model.IsArchive == false)
+                    {
+                        @if (Model.mat == null)
+                        {
+                            <div yes2 draggable="true" i="@i" j="@j" ondragstart="star(event)" ondragover="ov(event)" ></div>
+                        }
+                        else
+                        {
+                            <div yes2 draggable="true" i="@i" j="@j" style="background-color:@Model.mat[i][j]" ondragstart="star(event)" ondragover="ov(event)" ></div>
+
+                        }
+                    }
+                    else
+                    {
+                        @if (Model.mat == null)
+                        {
+                            <div yes2 i="@i" j="@j"></div>
+                        }
+                        else
+                        {
+                            <div yes2 i="@i" j="@j" style="background-color:@Model.mat[i][j]"></div>
+
+                        }
+                    }
+
+                }
+            </div>
+        }
+        @if (Model.IsDisplay == true)
+        {
+            <style>
+                [row] {
+                    border: 1px solid;
+                    border-bottom-color: #808080 !important;
+                    border-top-color: transparent;
+                    border-right-color: transparent;
+                    border-left-color: transparent;
+                }
+
+                [yes2] {
+                    border: 1px solid;
+                    border-right-color: #808080 !important;
+                    border-top-color: transparent;
+                    border-top-color: transparent;
+                    border-left-color: transparent;
+                }
+            </style>
+        }
+    </div>
+}
+<div class="popupd">
+    <div>
+        <span>הכנס שם קובץ</span>
+        <span style="border: 1px solid transparent; background-color: transparent"><input namef type="text" placeholder="שם קובץ" /></span>
+        <span onclick="deleteboard()">מחק</span>
+    </div>
+</div>

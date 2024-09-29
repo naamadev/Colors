@@ -1,0 +1,39 @@
+﻿@model string
+    <script src="~/js/site.js"></script>
+    <link href="~/css/drowpage.css" rel="stylesheet" />
+@{
+    if (Model == "General")
+    {
+        List<Board> lstg = Users.AllDraws();
+
+        <div class="alldrowas">
+            @for (int i = 0; i < lstg.Count; i++)
+             {
+                 lstg[i].IsArchive = true;
+                 <div class="drow"><partial name="_partialboard" model="@lstg[i]" /></div>
+             }
+        </div>
+    }
+    else
+    {
+        List<Board> lstu = Users.ReturnDraws(Model);
+
+
+<div class="alldrowas">
+             @if (lstu == null)
+              {
+                 lstu = new List<Board>();
+              }
+            @for (int i = 0; i < lstu.Count; i++)
+             {
+                 lstu[i].IsArchive = true;
+                 <div class="drow"><partial name="_partialboard" model="@lstu[i]" /></div>
+             }
+        </div>
+    }
+}
+
+<style>
+    .alldrowas{border:1px solid;display:flex;height:500px;width:500px;flex-direction:column;overflow-y:scroll;}
+    .drow{flex:1;margin:5px;}
+</style>

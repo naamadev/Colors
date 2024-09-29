@@ -1,0 +1,188 @@
+﻿@page
+@{
+    List<Users> lstu = new List<Users>();
+    lstu = Users.ReturnUsers();
+    ViewData["Title"] = "דף משתמשים";
+    ViewData["User"] = "דף משתמשים";
+}
+<link href="~/css/EnterPage.css" rel="stylesheet" />
+<script src="~/js/partialusersjs.js"></script>
+<link href="~/css/partialusers.css" rel="stylesheet" />
+<div pp></div>
+<div class="divush">
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="c"></div>
+    <div class="d"></div>
+    <div class="e"></div>
+    <span class="s" onclick="start(this)">התחל</span>
+</div>
+<div class="maindiv">
+    <div onclick="func1()">ניהול משתמשים</div>
+    <div onclick="func('new')">משתמש חדש</div>
+    <div onclick="funce('old')">משתמש קיים</div>
+</div>
+<div class="popup">
+    <div>
+        <div class="appear">
+            <div><input typet="text" n /><span>שם משתמש:</span></div>
+            <div><input typet="text" p /><span>סיסמא:</span></div>
+        </div>
+        <span class="perform" onclick="cancel()">אישור</span>
+    </div>
+</div>
+
+<div class="popup1">
+    <div>
+        <div class="appear1">
+            <div><input typet="text" nm /><span>שם מנהל:</span></div>
+            <div><input typet="text" cm /><span>סיסמת המנהל:</span></div>
+        </div>
+        <span class="perform1" onclick="cancel1()">אימות</span>
+    </div>
+</div>
+<div class="popup2">
+    <div>
+        <span a></span>
+        <span onclick="cancel2()">אישור</span>
+    </div>
+</div>
+
+
+<script>
+    var x = ' ';
+    // var degel = 0;
+    function start(e) {
+        document.querySelector(".divush").style.display = "none";
+        document.querySelector(".maindiv").style.opacity = 1;
+    }
+    function func(e) {
+        //degel = 0;//משתמש חדש
+        x = e;
+        document.querySelector('.popup').classList.add('popupActive');
+    }
+    function funce(a) {
+        x = a;
+        //degel = 1;//משתמש קיים
+        document.querySelector('.popup').classList.add('popupActive');
+        // console.log(degel);
+    }
+    function cancel() {
+        document.querySelector('.popup').classList.remove('popupActive');
+        if (x == 'new') {
+            createuser();
+        }
+        if (x == 'old') {
+            //console.log("validationuser");
+            validationuser();
+        }
+    }
+    function func1() {
+        document.querySelector('.popup1').classList.add('popupActive');
+    }
+    function cancel1() {
+        document.querySelector('.popup1').classList.remove('popupActive');
+        areyoumanager();
+    }
+    function cancel2() {
+        document.querySelector('.popup2').classList.remove('popupActive');
+    }
+
+    function createuser()//פונקציה ליצירת משתמש חדש
+    {
+        var name = document.querySelector('[n]').value;
+        var pass = document.querySelector('[p]').value;
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Users/createuser/' + name + '/' + pass, true)//קישור לקונטרולר
+        req.onload = function () {
+            var x = req.responseText;
+            //console.log("in")
+            if (x == 1) {
+                //console.log(x + "1")
+                document.querySelector('[a]').innerHTML = name + " " + "ההרשמה שלך התבצעה בהצלחה!!!";
+                document.querySelector('.popup2').classList.add('popupActive');
+                cleare();//המשתמש צריך לעבור לדף ציור
+                window.location.assign("DrowPage?name=" + name);
+                // return;
+            }
+            if (x == 0) {
+                //console.log(x)
+                document.querySelector('[a]').innerHTML = name + " " + "אתה כבר רשום כמשתמש במשחק!!!";
+                document.querySelector('.popup2').classList.add('popupActive');
+                cleare();
+                //  return;
+            }
+            if (x == -1) {
+                document.querySelector('[a]').innerHTML = "לא ניתן להשלים את הבקשה";
+                document.querySelector('.popup2').classList.add('popupActive');
+                cleare();
+                // return;
+            }
+        };
+        req.send();
+    }
+
+    function cleare() {
+        document.querySelector('[n]').value = " ";
+        document.querySelector('[p]').value = " ";
+        document.querySelector('[nm]').value = " ";
+        document.querySelector('[cm]').value = " ";
+    }
+
+    function validationuser()//הפונקציה מאמתת משתמש קיים
+    {
+        var name = document.querySelector('[n]').value;
+        var pass = document.querySelector('[p]').value;
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Users/checkuser/' + name + '/' + pass, true)//קישור לקונטרולר
+        req.onload = function () {
+            var trueorfalse = req.responseText;
+            //console.log(trueorfalse);
+            if (trueorfalse == "true") {
+                document.querySelector('[a]').innerHTML = name + "אתה בהחלט משתמש אצלנו:)";
+                document.querySelector('.popup2').classList.add('popupActive');
+                cleare();//המשתמש צריך לעבור לדף ציור
+                window.location.assign("DrowPage?name=" + name);
+                // return;
+            }
+            if (trueorfalse == "false") {
+                document.querySelector('[a]').innerHTML = name + "אוי - יש לנו בעיה עם האימות שלך!!!";
+                document.querySelector('.popup2').classList.add('popupActive');
+                cleare();
+                //  return;
+            }
+        };
+        req.send();
+    }
+
+    function areyoumanager()//מאמת מנהל
+    {
+        // console.log("xxx");
+        var name = document.querySelector('[nm]').value;
+        var code = document.querySelector('[cm]').value;
+        var req = new XMLHttpRequest();
+        req.open('GET', 'API/Users/checkmanager/' + name + '/' + Number(code), true)//קישור לקונטרולר
+        req.onload = function () {
+            var iff = req.responseText;
+            console.log(iff);
+            if (iff == "false") {
+                document.querySelector('[a]').innerHTML = "מנהל לא חוקי!!!";//לא מאמת מנהל
+                document.querySelector('.popup2').classList.add('popupActive');
+                cleare();
+                //return;
+            }
+            else {
+                var reqe = new XMLHttpRequest();
+                reqe.open('GET', 'API/Users/PartialUsers', true);
+                reqe.onload = function () {
+                    document.querySelector(".maindiv").style.display = "none";
+                    document.querySelector('[pp]').style.display = "block";
+                    document.querySelector('[pp]').innerHTML = reqe.responseText;
+                }
+                reqe.send()
+                cleare();
+            }
+        };
+        req.send();
+    }
+</script>

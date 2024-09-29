@@ -1,0 +1,36 @@
+﻿@model List<Users>
+<link href="~/css/partialusers.css" rel="stylesheet" />
+<script src="~/js/partialusersjs.js"></script>
+<table class="table">
+    <tr>
+        <th class="tth">שם משתמש</th>
+        <th class="tth">סיסמא</th>
+        <th class="tth">תאריך</th>
+        <th class="tth">מספר יצירות</th>
+        <th class="tth">האם למחוק?</th>
+    </tr>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr name="@Model[i].UserName">
+            <td class="ttd">@Model[i].UserName</td>
+            <td class="ttd">@Model[i].Password</td>
+            <td class="ttd">@Model[i].DateCreate</td>
+            <td class="ttd">@Model[i].AmountArts</td>
+            <td class="bottomtd" onclick="pop('@(Model[i].UserName)')">מחק</td>
+        </tr>
+    }
+</table>
+<div class="popup">
+    <div>
+        <div class="del"></div>
+        <div>
+            <div onclick="deleteu()">אישור</div>
+            <div onclick="unpop()">ביטול</div>
+        </div>
+        <div>
+            <input a placeholder="שם משתמש" type="text" />
+            <input b placeholder="שם מנהל" type="text" />
+            <input c placeholder="סיסמאת מנהל" type="text" />
+        </div>
+    </div>
+</div>

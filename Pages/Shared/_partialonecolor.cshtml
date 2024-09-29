@@ -1,0 +1,24 @@
+﻿@model string
+<div class="divdiv" style="background-color:#@Model;" ondblclick="func(this)" onclick="changecolor('@Model')"></div>
+<div class="popup">
+    <div style="height: 50px; width: 200px;">
+        <span>???האם אתה בטוח שברצונך למחוק צבע זה</span>
+        <span onclick="deledtecolor('@Model')">אישור</span>
+    </div>
+</div>
+<style>
+    .divdiv{height:50px;width:50px;display:flex;border:1px solid;border-radius:50%;flex:1;flex-direction:column;margin:5px auto}
+    .popup{display:none;background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;z-index:1000}
+    .popup >div{display:flex;margin:auto;flex-direction:column;height:50px;width:200px;top:0;z-index:1000}
+    .popup >div >span{flex:1;margin:5px;text-align:center;font-family:Calibri;background-color:white;border-radius:3px;border:1px solid;top:0}
+    .popup >div >span:nth-child(2):hover{cursor:pointer;box-shadow:3px 3px 3px grey}
+    .popupActive{display: flex !important;}
+
+</style>
+<script>
+    function choose(a)
+    {
+        a.style.width = 60 + 'px';
+        a.style.height = 60 + 'px';
+    }
+</script>
