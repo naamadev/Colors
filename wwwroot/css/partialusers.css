@@ -1,0 +1,14 @@
+﻿.table{width:500px;height:auto;border:1px solid;border-radius:5px;margin:auto}
+.tth{text-align:center;font-family:Calibri;border:1px solid;color:#641c77;font-size:20px}
+.ttd{text-align:center;font-family:Calibri;border:1px solid;color:#b167ba;font-size:15px}
+.bottomtd{text-align:center;font-family:Calibri;border:1px solid;color:#b167ba;font-size:15px}
+.bottomtd:hover{box-shadow:3px 3px 3px #808080;cursor:pointer}
+.popup{display:none; background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+.popup >div{display:flex;margin:auto;flex-direction:column;height:300px;width:400px;}
+.popup >div >div:nth-child(1){flex:1;margin:5px;font-family:Calibri;text-align:center;border:1px solid;border-radius:3px;background-color:#d49f9f;font-weight:bold}
+.popup >div >div:nth-child(2){flex:1;margin:5px;display:flex}
+.popup >div >div:nth-child(2) >div{flex:1;margin:5px;font-family:Calibri;text-align:center;border:1px solid;border-radius:3px;background-color:#d49f9f;font-weight:bold}
+.popup >div >div:nth-child(2) >div:hover{box-shadow:3px 3px 3px #808080;cursor:pointer}
+.popup >div >div:nth-child(3){flex:1;margin:5px;display:flex}
+.popup >div >div:nth-child(3) >input{flex:1;margin:5px;width:30px}
+.popupActive{display: flex !important;}

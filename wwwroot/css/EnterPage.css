@@ -1,0 +1,69 @@
+﻿        .a,.b,.c,.d,.e
+        {
+            margin-top: 100px;
+            margin-left: 300px;
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            display:inline-block;
+            margin:5px;
+            margin-bottom:10px;
+            animation:a 2s ease-in-out infinite;
+        }
+        @keyframes a{
+            0% ,100%{
+                transform:scale(0.2);
+                background-color:#00ff90
+            }
+            40%{
+                transform: scale(1);
+                background-color:#00ffff
+            }
+            50% {
+                transform: scale(1);
+                background-color: #0094ff
+            }
+            60% {
+                transform: scale(1);
+                background-color: #0026ff
+            }           
+        }
+
+        .a{animation-delay:0s}
+        .b{animation-delay:0.2s}
+        .c{animation-delay:0.4s}
+        .d{animation-delay:0.8s}
+        .e{animation-delay:1s}
+        .s{height:30px;width:120px;text-align:center;font-size:20px;border:2px solid;border-radius:5px;font-family:Calibri;color:#c537a2;display:block;margin-left:100px;}
+        .s:hover{box-shadow:3px 3px 3px grey;cursor:pointer;}
+.divush{width:400px;height:500px;margin:200px auto}
+.maindiv{margin:auto;margin-top:100px;margin-left:300px;display:flex;height:70px;width:620px;opacity:0;transition: opacity 5s;}
+.maindiv >div{flex:1;margin:5px;border-radius:5px;border:3px solid black;text-align:center;font-family:Calibri;background-color:dodgerblue;font-size:30px;color:white}
+.maindiv >div:hover{cursor:pointer;background-color:skyblue;border:4px solid darkblue;color:darkblue;box-shadow:3px 3px 3px #f280b8}
+.popup{display:none; background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+.popup >div:nth-child(1){display:flex;flex-direction:column;height:150px;width:500px;display:block;margin:auto;border:3px solid;border-radius:5px;background-color:white}
+.popupActive{display: flex !important;}
+.appear{flex:3;display:flex;flex-direction:column;}
+.appear >div{margin:3px;display:flex;flex:1}
+.appear >div >input{flex:1;}
+.appear >div >span{flex:1;border:1px solid ;font-family:Calibri;text-align:center;margin:7px;border-radius:3px;color:#c537a2;direction:rtl;font-weight:bold;font-size:20px}
+.perform{flex:1;margin:auto;border-radius:5px;font-family:Calibri;font-weight:bold;color:#c537a2;border:1px solid;text-align:center;font-size:15px;padding:5px;margin:5px}
+.perform:hover{cursor:pointer;background-color:black;border:2px solid #c537a2;color:white;box-shadow:3px 3px 3px grey}
+.popup1{display:none; background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+.popup1 >div:nth-child(1){display:flex;flex-direction:column;height:150px;width:500px;display:block;margin:auto;border:3px solid;border-radius:5px;background-color:white}
+.popupActive{display: flex !important;}
+.appear1{flex:3;display:flex;flex-direction:column;}
+.appear1 >div{margin:3px;display:flex;flex:1}
+.appear1 >div >input{flex:1;}
+.appear1 >div >span{flex:1;border:1px solid ;font-family:Calibri;text-align:center;margin:7px;border-radius:3px;color:#c537a2;direction:rtl;font-weight:bold;font-size:20px}
+.perform1{flex:1;margin:auto;border-radius:5px;font-family:Calibri;font-weight:bold;color:#c537a2;border:1px solid;text-align:center;font-size:15px;padding:5px;margin:5px}
+.perform1:hover{cursor:pointer;background-color:black;border:2px solid #c537a2;color:white;box-shadow:3px 3px 3px grey}
+.popup2{display:none; background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+.popup2 >div{background-color:white;display:flex;flex-direction:column;width:350px;height:50px;display:block;margin:auto;border:1px solid;border-radius:5px;flex-direction:column}
+.popup2 >div >span{flex:1;color:mediumvioletred;font-family:Calibri;text-align:center;font-size:20px;margin:5px;padding:5px;display:block}
+.popup2 > div > span:nth-child(2){border:1px solid;border-radius:5px;margin:auto;background-color:white;margin:5px}
+.popup2 > div > span:nth-child(2):hover{cursor:pointer;box-shadow:3px 3px 3px grey}
+.t{width:500px;height:auto;border:1px solid;border-radius:5px;margin:auto}
+.th{text-align:center;font-family:Calibri;border:1px solid;color:#00ff21;font-size:20px}
+.td{text-align:center;font-family:Calibri;border:1px solid;color:#b6ff00;font-size:15px}
+[pp]{width:500px;height:auto;display:none;margin:auto}

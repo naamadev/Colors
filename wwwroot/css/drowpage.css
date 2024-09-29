@@ -1,0 +1,29 @@
+﻿@media print 
+{
+    [colors]{display:none !important}
+    [disapear]{display:none !important}
+    [tabim]{display:none !important}
+}
+
+/*עיצוב פרשל פלטה */
+    [pallete]{display:flex;width:55px;height:auto;border:1px solid;border-radius:3px;display: grid;
+    grid-template-columns: 50px;}
+    .plus{text-align:center;font-size:30px;flex:1;}
+    .plus:hover{cursor:pointer;font-weight:bolder}
+    [y]{border:1px solid;border-radius:3px;text-align:center;font-family:Calibri;width:50px;height:auto;margin:10px}
+    [y]:hover{box-shadow:3px 3px 3px grey;cursor:pointer;}
+    [colorr]{width:100px}
+
+/*    עיצוב פרשל לוח*/
+    .spani{margin:2px;display:flex;width:100px;height:auto;display:inline}
+    .spani >span{flex:1;border:1px solid;border-radius:3px;text-align:center;font-family:Calibri;}
+    .spani >span:hover{cursor:pointer;box-shadow:3px 3px 3px grey;border:2px solid}
+    .diveastable{width:500px;height:500px;display:flex;flex-direction:column;border:2px solid}
+    [row]{flex:1;display:flex;border:1px solid transparent}
+    .diveastable >div >div{flex:1;border:1px solid transparent;}
+    .namefile{font-family:Calibri;font-weight:bolder;}
+    .popupd{display:none;background-color:rgba(33,33,33,0.2);height:100vh; width:100vw; position:fixed; top:0; left:0;}
+    .popupd >div{display:flex;margin:auto;flex-direction:column;height:50px;width:200px;margin-top:0px;}
+    .popupd >div >span{flex:1;margin:5px;text-align:center;font-family:Calibri;background-color:white;border-radius:3px;border:1px solid}
+    .popupd >div >span:nth-child(3):hover{cursor:pointer;box-shadow:3px 3px 3px grey}
+    .popupActive{display: flex !important;}  
